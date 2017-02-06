@@ -2,7 +2,7 @@
 # Configuration Variables
 
 #Taget Binary Name
-TARGET        ?= holonomic-demo
+TARGET        ?= joshua
 
 # List all the source files here, or rely on the wildcard
 C_SOURCES     ?= $(wildcard src/*.c)
@@ -15,10 +15,10 @@ INCLUDES      ?= inc
 TOOL          ?= $(shell dirname `which arm-none-eabi-gcc`)
 
 # Path to the root of your (Stellaris|Tiva)Ware folder
-TW_DIR        ?= $(HOME)/src/StellarisWare
+TW_DIR        ?= /usr/local/lib/StellarisWare
 
 # Path to the root of yor RASLib folder
-RAS_DIR				?= $(HOME)/src/C/Rasware/RASLib
+RAS_DIR				?= $(HOME)/ras/Rasware/RASLib
 
 # Part Number
 Part_Number   ?= LM4F120H5QR
@@ -78,7 +78,7 @@ CFLAGS     += ${FLAGS}
 CFLAGS     += -MD
 CFLAGS     += -Wall
 CFLAGS     += -Wextra
-CFLAGS     += -Werror
+#CFLAGS     += -Werror
 CFLAGS     += -Wno-deprecated-declarations
 CFLAGS     += -pedantic
 CFLAGS     += -DPART_${Part_Number}
