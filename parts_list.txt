@@ -1,12 +1,13 @@
 This is a list of parts needed for the refit. This does not include parts that are already on Moses (motors, frame, wheels, drivers, batteries)
 
--(pat)protoboard
--VEX battery connector/Anderson clips in paralell
+-(got)protoboard
+-(got)VEX battery connector
+    -solder, charge
 -(taken from robotathon)rocker switch
 -(taken from robotathon)5V/5A regulator
 -(samtec)Two 2x20 male/male (or female/male with long pins) headers for launchpad
 -(samtec)Four 3x1 female/male long pin headers for motor connections
--Nine female-male jumper wires for PSX dongle
+-(got)Nine female-male jumper wires for PSX dongle
     -brown
     -orange
     -grey (not necessary)

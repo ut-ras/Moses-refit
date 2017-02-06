@@ -1,0 +1,6 @@
+Seen from the side where the U faces you:
+
+Front left: PD1
+Back left: PD0
+Front right: PD2
+Back right: PD3
