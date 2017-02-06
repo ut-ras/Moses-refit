@@ -1,9 +1,9 @@
-#include "../../Rasware/RASLib/inc/common.h"
-#include "../../Rasware/RASLib/inc/motor.h"
-#include "../../Rasware/RASLib/inc/gpio.h"
-#include "../../Rasware/RASLib/inc/spi.h"
-#include "../../Rasware/RASLib/inc/time.h"
-#include "../../Rasware/RASLib/inc/uart.h"
+#include "RASLib/inc/common.h"
+#include "RASLib/inc/motor.h"
+#include "RASLib/inc/gpio.h"
+#include "RASLib/inc/spi.h"
+#include "RASLib/inc/time.h"
+#include "RASLib/inc/uart.h"
 #include <stdint.h>
 #include <stdio.h>
 
