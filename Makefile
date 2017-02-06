@@ -2,7 +2,7 @@
 # Configuration Variables
 
 #Taget Binary Name
-TARGET        ?= joshua
+TARGET        ?= moses
 
 # List all the source files here, or rely on the wildcard
 C_SOURCES     ?= $(wildcard src/*.c)
