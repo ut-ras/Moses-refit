@@ -4,3 +4,9 @@ Front left: PD1
 Back left: PD0
 Front right: PD2
 Back right: PD3
+
+1k pullup data to 3.3v
+A2 to clock
+A5 to cmd
+A4 to data
+B2 to attn
