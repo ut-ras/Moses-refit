@@ -10,6 +10,12 @@ extern uint32_t Lx, Ly, Rx, Ry, X, Square, Triangle, Circle,
        Up, Down, Left, Right, L1, L2, R1, R2;
 
 static tMotor * motors[4];
+static int ledState1 = 0;
+
+void ToggleLED1(void){
+    SetPin(PIN_F2, ledState1 & 1);
+    ++ledState1;
+}//why is this not working?
 
 void doMotorState (float x, float y, float w) {
         SetMotor(motors[0], - w - x + y);
@@ -23,7 +29,7 @@ int HoloMain (void) {
         for (; i < 4; ++i) {
                 motors[i] = InitializeServoMotor(i + PIN_D0, false);
         }
-       SetPin(PIN_F2, 1);
+       CallEvery(ToggleLED1, 0, 0.75);
        while (1) {
                 PSX_Poll();
                 float x, y, w;
