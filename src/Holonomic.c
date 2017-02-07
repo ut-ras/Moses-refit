@@ -15,11 +15,11 @@ static int ledState1 = 0;
 void ToggleLED1(void){
     SetPin(PIN_F2, ledState1 & 1);
     ++ledState1;
-}//why is this not working?
+}
 
 void doMotorState (float x, float y, float w) {
-        SetMotor(motors[0], - w - x + y);
-        SetMotor(motors[1], - w - x - y);
+        SetMotor(motors[0], - w - x - y);
+        SetMotor(motors[1], - w - x + y);
         SetMotor(motors[2], - w + x + y);
         SetMotor(motors[3], - w + x - y);
 }
@@ -36,13 +36,13 @@ int HoloMain (void) {
                 signed char wC = Rx - 0x80;
                 signed char xC = Ly - 0x80;
                 signed char yC = Lx - 0x80;
-                if (w == -128) w = -127;
-                w = -w;
-                if (x == -128) x = -127;
-                x = -x;
-                if (x * x < 400) x = 0;
-                if (y * y < 400) y = 0;
-                if (w * w < 400) w = 0;
+                if (wC == -128) wC = -127;
+                wC = -wC;
+                if (xC == -128) xC = -127;
+                xC = -xC;
+                if (xC * xC < 400) xC = 0;
+                if (yC * yC < 400) yC = 0;
+                if (wC * wC < 400) wC = 0;
                 x = xC * 0.25f/127.0f;
                 y = yC * 0.25f/127.0f;
                 w = wC * 0.25f/127.0f;
