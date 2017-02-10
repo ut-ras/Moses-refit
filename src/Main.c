@@ -5,11 +5,15 @@
 #include <RASLib/inc/motor.h>
 #include <RASLib/inc/servo.h>
 #include <StellarisWare/driverlib/gpio.h>
+//#include <StellarisWare/driverlib/watchdog.h>
+//#include <StellarisWare/driverlib/sysctl.h>
 #include <stdint.h>
 //#include "PLL.h"
 #include <math.h>
 #include "PSX.h"
 #include "Holonomic.h"
+
+//#define WATCHDOG0_BASE (*((volatile unsigned long *) 0x40000000))
 
 tBoolean blink_on = true;
 tBoolean initialized = false;
@@ -28,5 +32,10 @@ int main(void) {
     //PLL_Init(Bus80MHz)
     CallEvery(blink, 0, 0.5);
     PSX_Initialize();
+   /* SysCtlPeripheralEnable(SYSCTL_PERIPH_WDOG0);
+    WatchdogReloadSet(WATCHDOG0_BASE, SysCtlClockGet());
+    WatchdogResetEnable(WATCHDOG0_BASE);
+    WatchdogEnable(WATCHDOG0_BASE);
+    WatchdogLock(WATCHDOG0_BASE);*/
     HoloMain();
 }

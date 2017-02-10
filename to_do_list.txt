@@ -1,0 +1,8 @@
+2. Put Watchdog on Moses
+3. Put Watchdog on JOSHUA
+4: Watchdog:
+    if XOSqC != 255, tickle watchdog
+    PSX_Clear() at end of while(1)?
+4. Restructure both Moses and JOSHUA:
+    -Always in Freestyle mode
+    -Listening for XOSqC presses to do preset motions that suspend freestyle mode
