@@ -29,13 +29,7 @@ void blink(void) {
 // The 'main' function is the entry point of the program
 int main(void) {
     InitializeGPIO();
-    //PLL_Init(Bus80MHz)
     CallEvery(blink, 0, 0.5);
     PSX_Initialize();
-   /* SysCtlPeripheralEnable(SYSCTL_PERIPH_WDOG0);
-    WatchdogReloadSet(WATCHDOG0_BASE, SysCtlClockGet());
-    WatchdogResetEnable(WATCHDOG0_BASE);
-    WatchdogEnable(WATCHDOG0_BASE);
-    WatchdogLock(WATCHDOG0_BASE);*/
     HoloMain();
 }

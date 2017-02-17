@@ -8,7 +8,6 @@
 //#include <StellarisWare/driverlib/watchdog.h>
 //#include <StellarisWare/driverlib/sysctl.h>
 
-#define WATCHDOG0_BASE (*((volatile unsigned long *)0x40000000))
 extern uint32_t Lx, Ly, Rx, Ry, X, Square, Triangle, Circle,
        Up, Down, Left, Right, L1, L2, R1, R2;
 
@@ -36,8 +35,6 @@ int HoloMain (void) {
        CallEvery(ToggleLED1, 0, 0.75);
        while (1) {
                 PSX_Poll();
-               // if (Square != 255 && Triangle != 255 && Circle != 255 && Circle != 255)
-               //     WatchdogIntClear(WATCHDOG0_BASE);
                 float x, y, w;
                 signed char wC = Rx - 0x80;
                 signed char xC = Ly - 0x80;
@@ -49,6 +46,7 @@ int HoloMain (void) {
                 if (xC * xC < 400) xC = 0;
                 if (yC * yC < 400) yC = 0;
                 if (wC * wC < 400) wC = 0;
+                //max motor speed: ~0.25
                 x = xC * 0.25f/127.0f;
                 y = yC * 0.25f/127.0f;
                 w = wC * 0.25f/127.0f;
