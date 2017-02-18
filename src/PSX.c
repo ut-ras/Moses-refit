@@ -6,6 +6,11 @@
 #include "RASLib/inc/uart.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <StellarisWare/inc/hw_sysctl.h>
+#include <StellarisWare/driverlib/sysctl.h>
+#include <StellarisWare/inc/hw_watchdog.h>
+#include <StellarisWare/driverlib/watchdog.h>
+#include <StellarisWare/inc/hw_memmap.h>
 
 static int ledState = 0;
 static tSPI * spi;
@@ -53,6 +58,7 @@ uint32_t leave_escape[5] = {0x01, 0x43, 0x00, 0x00, 0x00};
 #define arraySizeof(arry) (sizeof(arry) / sizeof(arry[0]))
 
 uint32_t data[d_buf_size] = {0x00,};
+uint32_t dataCheck[d_buf_size] = {0x00,};
  
 
 void PSX_Initialize(void){
@@ -94,6 +100,9 @@ void PSX_Initialize(void){
                                 arraySizeof(poll), &data[0]);
         } while (data[1] != 0x79);
         Wait(0.2);
+        for (int i = 0; i < d_buf_size; i++){
+            dataCheck[i] = data[i];
+        }
 }
 
 void PSX_Poll(void) {
@@ -103,11 +112,20 @@ void PSX_Poll(void) {
                 Printf("Lx %03d Ly %03d Rx %03d Ry %03d "
                     "X %03d Square %03d Triangle %03d Circle %03d "
                     "Up %03d Down %03d Left %03d Right %03d "
-                     "L1 %03d L2 %03d R1 %03d R2 %03d\r",
+                     "L1 %03d L2 %03d R1 %03d R2 %03d" 
+                     "\t%03d %03d %03d %03d %03d\r",
                     data[7], data[8], data[5], data[6],
                     data[15], data[16], data[13], data[14],
                     data[11], data[12], data[10], data[9],
-                    data[17], data[19], data[18], data[20]);
+                    data[17], data[19], data[18], data[20],
+                    data[0], data[1], data[2], data[3], 
+                    data[4]);
+        if (data[7] != dataCheck[7] ||
+                data[8] != dataCheck[8] ||
+                data[5] != dataCheck[5] ||
+                data[6] != dataCheck[6]){
+            WatchdogReloadSet(WATCHDOG_BASE, 25000000);
+        }
         Lx = data[7];
         Ly = data[8];
         Rx = data[5];
@@ -124,6 +142,9 @@ void PSX_Poll(void) {
         L2 = data[19];
         R1 = data[18];
         R2 = data[20];
+        for (int i = 0; i < d_buf_size; i++){
+            dataCheck[i] = data[i];
+        }
 }
 void PSX_Clear(void){
     Lx = 128;

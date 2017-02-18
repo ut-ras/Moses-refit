@@ -5,15 +5,12 @@
 #include <RASLib/inc/uart.h>
 #include "PSX.h"
 #include <stdint.h>
-//#include <StellarisWare/driverlib/watchdog.h>
-//#include <StellarisWare/driverlib/sysctl.h>
 
 extern uint32_t Lx, Ly, Rx, Ry, X, Square, Triangle, Circle,
        Up, Down, Left, Right, L1, L2, R1, R2;
 
 static tMotor * motors[4];
 static int ledState1 = 0;
-static volatile unsigned char g_watchdog = 0;
 
 void ToggleLED1(void){
     SetPin(PIN_F2, ledState1 & 1);
@@ -51,6 +48,7 @@ int HoloMain (void) {
                 y = yC * 0.25f/127.0f;
                 w = wC * 0.25f/127.0f;
                 doMotorState(x,y,w);
+               // doMotorState(0,0,0);
         }
 }
 
