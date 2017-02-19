@@ -3,6 +3,5 @@
 
 int HoloMain(void);
 void doMotorState(float x, float y, float w);
-void StopMotors(void * trash);
 
 #endif

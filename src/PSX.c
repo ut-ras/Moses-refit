@@ -6,18 +6,16 @@
 #include "RASLib/inc/uart.h"
 #include <stdint.h>
 #include <stdio.h>
-//#include <StellarisWare/inc/hw_sysctl.h>
-//#include <StellarisWare/driverlib/sysctl.h>
-//#include <StellarisWare/inc/hw_watchdog.h>
-//#include <StellarisWare/driverlib/watchdog.h>
-//#include <StellarisWare/inc/hw_memmap.h>
-#include <RASLib/inc/timeout.h>
+#include <StellarisWare/inc/hw_sysctl.h>
+#include <StellarisWare/driverlib/sysctl.h>
+#include <StellarisWare/inc/hw_watchdog.h>
+#include <StellarisWare/driverlib/watchdog.h>
+#include <StellarisWare/inc/hw_memmap.h>
 
 static int ledState = 0;
 static tSPI * spi;
 uint32_t Lx, Ly, Rx, Ry, X, Square, Triangle, Circle,
          Up, Down, Left, Right, L1, L2, R1, R2;
-extern int tid;
 
 void ToggleLED (void) {
         SetPin(PIN_F1, ledState & 1);
@@ -126,8 +124,7 @@ void PSX_Poll(void) {
                 data[8] != dataCheck[8] ||
                 data[5] != dataCheck[5] ||
                 data[6] != dataCheck[6]){
-           // WatchdogReloadSet(WATCHDOG_BASE, 25000000);
-           TimeoutReset(tid);
+            WatchdogReloadSet(WATCHDOG_BASE, 25000000);
         }
         Lx = data[7];
         Ly = data[8];
