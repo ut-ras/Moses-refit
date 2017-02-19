@@ -5,7 +5,6 @@
 #include <RASLib/inc/uart.h>
 #include "PSX.h"
 #include <stdint.h>
-#include <RASLib/inc/timeout.h>
 
 extern uint32_t Lx, Ly, Rx, Ry, X, Square, Triangle, Circle,
        Up, Down, Left, Right, L1, L2, R1, R2;
@@ -18,22 +17,11 @@ void ToggleLED1(void){
     ++ledState1;
 }
 
-
-
-
 void doMotorState (float x, float y, float w) {
         SetMotor(motors[0], - w - x - y);
         SetMotor(motors[1], - w - x + y);
         SetMotor(motors[2], - w + x + y);
         SetMotor(motors[3], - w + x - y);
-}
-void StopMotors (void * trash){
-        trash = trash;
-        doMotorState(0.0f,0.0f,0.0f);
-		SetPin(PIN_F1, true);
-   	    SetPin(PIN_F2, true);
-        SetPin(PIN_F3, true);
- 
 }
 
 int HoloMain (void) {

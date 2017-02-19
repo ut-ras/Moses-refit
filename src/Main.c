@@ -9,24 +9,21 @@
 #include <math.h>
 #include "PSX.h"
 #include "Holonomic.h"
-//#include <StellarisWare/inc/hw_sysctl.h>
-//#include <StellarisWare/driverlib/sysctl.h>
-//#include <StellarisWare/inc/hw_watchdog.h>
-//#include <StellarisWare/driverlib/watchdog.h>
-//#include <StellarisWare/inc/hw_memmap.h>
-#include <RASLib/inc/timeout.h>
+#include <StellarisWare/inc/hw_sysctl.h>
+#include <StellarisWare/driverlib/sysctl.h>
+#include <StellarisWare/inc/hw_watchdog.h>
+#include <StellarisWare/driverlib/watchdog.h>
+#include <StellarisWare/inc/hw_memmap.h>
 
 tBoolean blink_on = true;
 tBoolean initialized = false;
-int tid;
 
 void blink(void) {
     SetPin(PIN_F3, blink_on);
     blink_on = !blink_on;
 }
 
-
-/*void WatchdogHandler(void){
+void WatchdogHandler(void){
     WatchdogIntClear(WATCHDOG_BASE);
     WatchdogResetDisable(WATCHDOG_BASE);
 
@@ -35,9 +32,9 @@ void blink(void) {
     SetPin(PIN_F2, true);
     SetPin(PIN_F3, true);
     //while (true){}
-}*/
+}
 
-/*void WatchDog_Init(){
+void WatchDog_Init(){
     SysCtlPeripheralEnable(SYSCTL_PERIPH_WDOG);
     WatchdogIntClear(WATCHDOG_BASE);
     //WatchdogStallEnable(WATCHDOG_BASE); //Enable for breakpoint debugging
@@ -49,15 +46,13 @@ void blink(void) {
     WatchdogIntEnable(WATCHDOG_BASE);
     WatchdogResetDisable(WATCHDOG_BASE); //second interrupt doesn't reset processor
     WatchdogEnable(WATCHDOG_BASE);
-}*/
+}
 
 // The 'main' function is the entry point of the program
 int main(void) {
     InitializeGPIO();
     CallEvery(blink, 0, 0.5);
-   // WatchDog_Init();
-	InitializeSystemTimeout();
-    tid = CallOnTimeout(StopMotors, NULL, 0.1f);
+    WatchDog_Init();
     PSX_Initialize();
     HoloMain();
 }
